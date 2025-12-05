@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Japanese Study Card</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="card-container">
+        <header>
+            <div class="header-left">
+                <div class="level-badge" id="displayLevel">N2</div>
+                <div class="category" id="displayCategory">抽象逻辑</div>
+            </div>
+            <div class="header-center">
+                <div class="main-title" id="displayTitle">キャリアの選択</div>
+                <div class="subtitle" id="displaySubtitle">(职业选择)</div>
+            </div>
+            <div class="header-right">
+                <div>Created by Antigravity</div>
+            </div>
+        </header>
+
+        <div class="content-grid">
+            <!-- Left Column: Main Text & Translation -->
+            <div class="left-column">
+                <div id="videoContainer" class="video-container" style="display: none;">
+                    <!-- Video will be injected here -->
+                </div>
+
+                <div class="japanese-text" id="displayMainText">
+                    <!-- Content will be injected here -->
+                </div>
+
+                <div class="translation-text" id="displayTranslation">
+                    <!-- Content will be injected here -->
+                </div>
+            </div>
+
+            <!-- Right Column: Vocab & Grammar -->
+            <div class="right-column">
+                <div class="section-title">重点词汇</div>
+                <ul class="vocab-list" id="displayVocab">
+                    <!-- Content will be injected here -->
+                </ul>
+
+                <div style="height: 30px;"></div> <!-- Spacer -->
+
+                <div class="section-title">语法总结</div>
+                <ul class="grammar-list" id="displayGrammar">
+                    <!-- Content will be injected here -->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedData = localStorage.getItem('japaneseCardData');
+            if (savedData) {
+                const data = JSON.parse(savedData);
+
+                document.getElementById('displayLevel').textContent = data.level || 'N2';
+                document.getElementById('displayCategory').textContent = data.category || '';
+                document.getElementById('displayTitle').textContent = data.title || '';
+                document.getElementById('displaySubtitle').textContent = data.subtitle ? `(${data.subtitle})` : '';
+
+                // Video Logic
+                const videoContainer = document.getElementById('videoContainer');
+                const videoInput = data.videoUrl || '';
+
+                if (videoInput) {
+                    videoContainer.style.display = 'block';
+                    if (videoInput.trim().startsWith('<iframe')) {
+                        // Assume Embed Code
+                        videoContainer.innerHTML = videoInput;
+                        // Make iframe responsive
+                        const iframe = videoContainer.querySelector('iframe');
+                        if (iframe) {
+                            iframe.style.width = '100%';
+                            iframe.style.height = '300px'; // Fixed height or aspect ratio
+                        }
+                    } else {
+                        // Assume Direct URL (try video tag)
+                        videoContainer.innerHTML = `
+                            <video controls width="100%">
+                                <source src="${videoInput}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        `;
+                    }
+                } else {
+                    videoContainer.style.display = 'none';
+                }
+
+                // Allow HTML for Main Text (for Ruby tags)
+                document.getElementById('displayMainText').innerHTML = data.mainText || '';
+
+                document.getElementById('displayTranslation').textContent = data.translation || '';
+
+                // Process Vocab (Split by newlines)
+                const vocabList = document.getElementById('displayVocab');
+                if (data.vocabulary) {
+                    data.vocabulary.split('\n').forEach(line => {
+                        if (line.trim()) {
+                            const li = document.createElement('li');
+                            li.className = 'vocab-item';
+                            li.textContent = line;
+                            vocabList.appendChild(li);
+                        }
+                    });
+                }
+
+                // Process Grammar (Split by newlines)
+                const grammarList = document.getElementById('displayGrammar');
+                if (data.grammar) {
+                    data.grammar.split('\n').forEach(line => {
+                        if (line.trim()) {
+                            const li = document.createElement('li');
+                            li.className = 'grammar-item';
+                            li.textContent = line;
+                            grammarList.appendChild(li);
+                        }
+                    });
+                }
+            }
+        });
+    </script>
+
+</body>
+
+</html>

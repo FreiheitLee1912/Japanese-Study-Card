@@ -1,0 +1,200 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@400;700&display=swap');
+
+:root {
+    --primary-text: #333333;
+    --secondary-text: #555555;
+    --accent-blue: #003366;
+    /* Dark blue from reference */
+    --accent-red: #cc0000;
+    /* Red for highlights */
+    --bg-color: #f9f9f9;
+    --paper-color: #ffffff;
+    --line-color: #e0e0e0;
+    --dotted-line: #bbbbbb;
+}
+
+body {
+    background-color: var(--bg-color);
+    font-family: 'Noto Sans JP', sans-serif;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    color: var(--primary-text);
+}
+
+.card-container {
+    width: 210mm;
+    /* A4 width approx */
+    min-height: 297mm;
+    /* A4 height approx */
+    background-color: var(--paper-color);
+    padding: 40px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    position: relative;
+}
+
+/* Header */
+header {
+    border-bottom: 2px solid var(--accent-blue);
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.header-left {
+    display: flex;
+    flex-direction: column;
+}
+
+.level-badge {
+    font-size: 48px;
+    font-weight: 900;
+    color: var(--accent-blue);
+    line-height: 1;
+}
+
+.category {
+    font-size: 14px;
+    color: var(--accent-red);
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.header-center {
+    text-align: center;
+    flex-grow: 1;
+}
+
+.main-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--accent-blue);
+    margin: 0;
+}
+
+.subtitle {
+    font-size: 18px;
+    color: var(--accent-blue);
+    font-weight: 500;
+}
+
+.header-right {
+    font-size: 12px;
+    color: #888;
+    text-align: right;
+}
+
+/* Main Layout */
+.content-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 30px;
+    height: 100%;
+}
+
+.left-column {
+    padding-right: 20px;
+    border-right: 2px dotted var(--dotted-line);
+}
+
+.right-column {
+    padding-left: 10px;
+}
+
+.video-container {
+    margin-bottom: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #000;
+}
+
+/* Typography & Content */
+.japanese-text {
+    font-size: 20px;
+    line-height: 2.2;
+    /* High line height for ruby */
+    margin-bottom: 30px;
+    text-align: justify;
+}
+
+.translation-text {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--secondary-text);
+    background-color: #f4f4f4;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+/* Ruby Styling */
+ruby {
+    ruby-position: over;
+}
+
+rt {
+    font-size: 0.6em;
+    color: #666;
+}
+
+/* Highlights */
+.highlight {
+    color: var(--accent-red);
+    font-weight: bold;
+}
+
+.underline-red {
+    border-bottom: 2px solid var(--accent-red);
+}
+
+/* Sidebar Sections */
+.section-title {
+    font-size: 18px;
+    color: var(--accent-blue);
+    font-weight: 700;
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--line-color);
+    padding-bottom: 5px;
+}
+
+.vocab-list,
+.grammar-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.vocab-item,
+.grammar-item {
+    margin-bottom: 12px;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.vocab-item strong {
+    display: block;
+    color: #333;
+}
+
+.grammar-item strong {
+    color: var(--accent-blue);
+}
+
+/* Print Optimization */
+@media print {
+    body {
+        background: none;
+        padding: 0;
+    }
+
+    .card-container {
+        box-shadow: none;
+        width: 100%;
+        height: 100%;
+        padding: 20px;
+        /* Reduce padding for print */
+    }
+}

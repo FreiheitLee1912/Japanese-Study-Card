@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Japanese Card Admin</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --bg-color: #f5f7fa;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+            color: var(--primary-color);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--primary-color);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        input[type="text"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        .row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .col {
+            flex: 1;
+        }
+
+        button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .helper-text {
+            font-size: 12px;
+            color: #7f8c8d;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Japanese Card Generator</h1>
+        <form id="cardForm">
+            <div class="row">
+                <div class="col form-group">
+                    <label for="level">Level (e.g., N2)</label>
+                    <input type="text" id="level" name="level" placeholder="N2" required>
+                </div>
+                <div class="col form-group">
+                    <label for="category">Category (e.g., 抽象逻辑)</label>
+                    <input type="text" id="category" name="category" placeholder="Category">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="title">Title (e.g., キャリアの選択)</label>
+                <input type="text" id="title" name="title" placeholder="Main Title" required>
+            </div>
+
+            <div class="form-group">
+                <label for="subtitle">Subtitle (e.g., 职业选择)</label>
+                <input type="text" id="subtitle" name="subtitle" placeholder="Subtitle (optional)">
+            </div>
+
+            <div class="form-group">
+                <label for="mainText">Main Text (Japanese)</label>
+                <textarea id="mainText" name="mainText"
+                    placeholder="Enter Japanese text here. Use <ruby>漢<rt>かん</rt></ruby> for furigana."
+                    style="height: 150px;"></textarea>
+                <div class="helper-text">Tip: Use &lt;ruby&gt;Kanji&lt;rt&gt;kana&lt;/rt&gt;&lt;/ruby&gt; for furigana.
+                    Use &lt;span class="highlight"&gt;text&lt;/span&gt; for red highlights.</div>
+            </div>
+
+            <div class="form-group">
+                <label for="translation">Translation (Chinese)</label>
+                <textarea id="translation" name="translation" placeholder="Enter Chinese translation here."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="vocabulary">Vocabulary (重点词汇)</label>
+                <textarea id="vocabulary" name="vocabulary"
+                    placeholder="Enter vocabulary list (one per line)."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="grammar">Grammar Summary (语法总结)</label>
+                <textarea id="grammar" name="grammar" placeholder="Enter grammar points (one per line)."></textarea>
+            </div>
+
+            <button type="submit">Generate Card</button>
+        </form>
+    </div>
+
+    <script src="card_script.js"></script>
+</body>
+
+</html>

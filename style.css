@@ -114,16 +114,16 @@ header {
 
 /* Typography & Content */
 .japanese-text {
-    font-size: 20px;
-    line-height: 2.2;
+    font-size: 18px;
+    line-height: 1.4;
     /* High line height for ruby */
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     text-align: justify;
 }
 
 .translation-text {
     font-size: 16px;
-    line-height: 1.8;
+    line-height: 1.5;
     color: var(--secondary-text);
     background-color: #f4f4f4;
     padding: 15px;

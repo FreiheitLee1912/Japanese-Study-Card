@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Admin</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body.admin-body {
+            background-color: #f3f4f6;
+            color: #1f2937;
+            display: block;
+            height: auto;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+
+        .admin-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #111827;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            background: none;
+            -webkit-text-fill-color: initial;
+        }
+
+        h2 {
+            color: #374151;
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #4b5563;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .btn-primary {
+            background-color: #2563eb;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1.1rem;
+            margin-top: 2rem;
+            transition: background 0.2s;
+        }
+
+        .btn-primary:hover {
+            background-color: #1d4ed8;
+        }
+
+        .array-item {
+            background: #f9fafb;
+            padding: 1rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+        }
+
+        .remove-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+
+        .add-btn {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .help-text {
+            font-size: 0.85rem;
+            color: #6b7280;
+            margin-top: 0.25rem;
+        }
+    </style>
+</head>
+
+<body class="admin-body">
+    <div class="admin-container">
+        <h1>Resume Builder Admin</h1>
+        <form id="resumeForm">
+            <!-- Personal Info -->
+            <h2>Personal Information</h2>
+            <div class="form-group">
+                <label>Name (Kanji)</label>
+                <input type="text" id="name" name="name" placeholder="e.g. 李 仲凱">
+            </div>
+            <div class="form-group">
+                <label>Name (English)</label>
+                <input type="text" id="name_en" name="name_en" placeholder="e.g. RI CHUGAI">
+            </div>
+            <div class="form-group">
+                <label>Title / Role</label>
+                <input type="text" id="title" name="title" placeholder="e.g. Supply Chain Consultant">
+            </div>
+            <div class="form-group">
+                <label>Contact / Certifications (Comma separated)</label>
+                <input type="text" id="contact" name="contact" placeholder="e.g. TOEIC 845, AWS Cloud Practitioner">
+            </div>
+
+            <!-- Summary -->
+            <h2>Summary</h2>
+            <div class="form-group">
+                <label>Professional Summary</label>
+                <textarea id="summary" name="summary"></textarea>
+            </div>
+
+            <!-- Experience -->
+            <h2>Work Experience</h2>
+            <div id="experience-list"></div>
+            <button type="button" class="add-btn" onclick="addExperienceItem()">+ Add Job</button>
+
+            <!-- Skills -->
+            <h2>Skills</h2>
+            <div class="form-group">
+                <label>Domain Expertise (Comma separated)</label>
+                <input type="text" id="skills_domain" name="skills_domain">
+            </div>
+            <div class="form-group">
+                <label>Technical Skills (Comma separated)</label>
+                <input type="text" id="skills_tech" name="skills_tech">
+            </div>
+            <div class="form-group">
+                <label>Management Skills (Comma separated)</label>
+                <input type="text" id="skills_mgmt" name="skills_mgmt">
+            </div>
+
+            <!-- Education -->
+            <h2>Education</h2>
+            <div class="form-group">
+                <label>Degree & University</label>
+                <input type="text" id="edu_degree" name="edu_degree">
+            </div>
+            <div class="form-group">
+                <label>Years</label>
+                <input type="text" id="edu_date" name="edu_date">
+            </div>
+
+            <!-- Achievements -->
+            <h2>Achievements</h2>
+            <div class="form-group">
+                <label>List Items (One per line)</label>
+                <textarea id="achievements" name="achievements"></textarea>
+            </div>
+
+            <button type="button" class="btn-primary" onclick="saveAndPreview()">Save & Generate Resume</button>
+            <button type="button" class="btn-primary" style="background-color: #10b981; margin-top: 1rem;"
+                onclick="saveAndDownloadImage()">Save & Download Image</button>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Initialize admin form
+        document.addEventListener('DOMContentLoaded', () => {
+            loadAdminData();
+        });
+
+        function saveAndDownloadImage() {
+            // First save the data
+            const experienceItems = [];
+            document.querySelectorAll('#experience-list .array-item').forEach(item => {
+                experienceItems.push({
+                    company: item.querySelector('.exp-company').value,
+                    role: item.querySelector('.exp-role').value,
+                    details: item.querySelector('.exp-details').value
+                });
+            });
+
+            const data = {
+                name: document.getElementById('name').value,
+                nameEn: document.getElementById('name_en').value,
+                title: document.getElementById('title').value,
+                contact: document.getElementById('contact').value,
+                summary: document.getElementById('summary').value,
+                experience: experienceItems,
+                skills: {
+                    domain: document.getElementById('skills_domain').value,
+                    tech: document.getElementById('skills_tech').value,
+                    mgmt: document.getElementById('skills_mgmt').value
+                },
+                education: {
+                    degree: document.getElementById('edu_degree').value,
+                    date: document.getElementById('edu_date').value
+                },
+                achievements: document.getElementById('achievements').value
+            };
+
+            localStorage.setItem('resumeData', JSON.stringify(data));
+
+            // Open resume with download action
+            window.open('resume.html?action=download', '_blank');
+        }
+    </script>
+</body>
+
+</html>

@@ -170,8 +170,8 @@ rt {
 .vocab-item,
 .grammar-item {
     margin-bottom: 10px;
-    font-size: 12px;
-    line-height: 1;
+    font-size: 14px;
+    line-height: 1.5;
 }
 
 .vocab-item strong {

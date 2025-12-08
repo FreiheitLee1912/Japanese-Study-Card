@@ -198,11 +198,3 @@ rt {
         /* Reduce padding for print */
     }
 }
-/* Highlight: 重點詞彙 & 語法卡片背景色 */
-.vocab-item,
-.grammar-item {
-    background-color: #f2f2f2; /* 淺灰背景 */
-    padding: 10px 12px;
-    border-radius: 6px;
-    margin-bottom: 10px;
-}
